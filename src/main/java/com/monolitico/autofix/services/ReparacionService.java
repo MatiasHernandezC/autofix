@@ -23,9 +23,10 @@ public class ReparacionService {
         return reparacionRepository.save(usuario);
     }
 
-    public void guardarReparacion(String Tipo_reparacion, Integer Monto_total, Timestamp Fecha_ingreso,
+    public void guardarReparacion(String Patente, String Tipo_reparacion, Integer Monto_total, Timestamp Fecha_ingreso,
                                   Timestamp Fecha_retiro, Timestamp Fecha_salida){
         ReparacionEntity reparacion = new ReparacionEntity();
+        reparacion.setPatente(Patente);
         reparacion.setTipo_reparacion(Tipo_reparacion);
         reparacion.setMonto_total(Monto_total);
         reparacion.setFecha_ingreso(Fecha_ingreso);

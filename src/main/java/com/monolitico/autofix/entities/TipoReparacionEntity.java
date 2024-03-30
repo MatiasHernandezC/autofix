@@ -5,23 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Reparaciones")
+@Table(name = "TipoReparaciones")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReparacionEntity {
+public class TipoReparacionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    private String Patente;
     private String Tipo_reparacion;
-    private Integer Monto_total;
-    private Timestamp Fecha_ingreso;
-    private Timestamp Fecha_salida;
-    private Timestamp Fecha_retiro;
+    private String Tipo_motor;
+    private Integer Precio;
 }

@@ -19,7 +19,7 @@ public class VehiculoController {
     @Autowired
     VehiculoService vehiculoService;
 
-    @GetMapping("/listar")
+    @GetMapping("/listarVehiculos")
     public String listar(Model model) {
         ArrayList<VehiculoEntity>vehiculos=vehiculoService.obtenerVehiculos();
         model.addAttribute("vehiculos",vehiculos);
