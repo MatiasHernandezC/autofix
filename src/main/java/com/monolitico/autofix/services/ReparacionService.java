@@ -8,6 +8,8 @@ import com.monolitico.autofix.entities.TipoReparacionEntity;
 import com.monolitico.autofix.repositories.TipoReparacionRepository;
 import com.monolitico.autofix.entities.Rep_TipoRepEntity;
 import com.monolitico.autofix.repositories.Rep_TipoRepRepository;
+import com.monolitico.autofix.entities.DescBonoEntity;
+import com.monolitico.autofix.repositories.DescBonoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class ReparacionService {
     VehiculoRepository vehiculoRepository;
     TipoReparacionRepository tipoReparacionRepository;
     Rep_TipoRepRepository rep_TipoRepRepository;
+    DescBonoRepository descBonoRepository;
     public ArrayList<ReparacionEntity> obtenerReparaciones(){
         return (ArrayList<ReparacionEntity>) reparacionRepository.findAll();
     }
@@ -148,9 +151,18 @@ public class ReparacionService {
             descuentos = descuentos + 0.1;
             //costoReparaciones = costoReparaciones*0.90;
         }
+        //Aplicar todos los descuentos que sean porcentuales
+        costoReparaciones = costoReparaciones * (1-descuentos);
         //Descuento por bono disponible
         //Si BonoDisp == 1, entonces se solicita el bono, si no salta esto
+        DescBonoEntity nuevo = new DescBonoEntity();
         if (BonoDisp == 1){
+            if (descBonoRepository.findByMarca(vehiculo.getMarca()).getCant_Bonos() > 0){
+                costoReparaciones = costoReparaciones - descBonoRepository.findByMarca(vehiculo.getMarca()).getMonto();
+                nuevo = descBonoRepository.findByMarca(vehiculo.getMarca());
+                nuevo.setCant_Bonos(nuevo.getCant_Bonos()-1);
+                descBonoRepository.updateByMarca(nuevo.getCant_Bonos(), vehiculo.getMarca());
+            }
 
         }
         //-------------------Fin DESCUENTOS-------------------
