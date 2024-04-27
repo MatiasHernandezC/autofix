@@ -5,23 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Vehiculos")
+@Table(name = "Rep_TipoRep")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehiculoEntity {
+public class Rep_TipoRepEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    private String Patente;
-    private String Marca;
-    private String Modelo;
-    private String Tipo;
-    private Date Ano_fabricacion;
-    private String Tipo_motor;
-    private Integer N_asientos;
+    private Long id_TipoReparacion;
+    private Long id_Reparacion;
+    private Integer Activo;//1 si, 0 no
 }

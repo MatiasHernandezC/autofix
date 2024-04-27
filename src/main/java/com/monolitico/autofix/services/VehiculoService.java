@@ -22,11 +22,12 @@ public class VehiculoService {
         return vehiculoRepository.save(usuario);
     }
 
-    public void guardarVehiculo(String Patente, String Marca, String Modelo, Date Ano_fabricacion, String Tipo_motor, Integer N_asientos){
+    public void guardarVehiculo(String Patente, String Marca, String Modelo, String Tipo, Date Ano_fabricacion, String Tipo_motor, Integer N_asientos){
         VehiculoEntity vehiculo = new VehiculoEntity();
         vehiculo.setPatente(Patente);
         vehiculo.setMarca(Marca);
         vehiculo.setModelo(Modelo);
+        vehiculo.setTipo(Tipo);
         vehiculo.setAno_fabricacion(Ano_fabricacion);
         vehiculo.setTipo_motor(Tipo_motor);
         vehiculo.setN_asientos(N_asientos);
@@ -35,7 +36,9 @@ public class VehiculoService {
     public Optional<VehiculoEntity> obtenerPorId(String id){
         return vehiculoRepository.findById(id);
     }
-
+    public VehiculoEntity obtenerPorPatente(String patente){
+        return vehiculoRepository.findByPatente(patente);
+    }
     public boolean eliminarVehiculo(String id) {
         try{
             vehiculoRepository.deleteById(id);

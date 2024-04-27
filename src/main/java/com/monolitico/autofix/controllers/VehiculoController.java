@@ -31,12 +31,13 @@ public class VehiculoController {
     }
     @PostMapping("/nuevo-vehiculo")
     public String nuevoVehiculo(@RequestParam("Patente") String Patente,
-                              @RequestParam("Marca") String Marca,
-                              @RequestParam("Modelo") String Modelo,
-                              @RequestParam("Ano_fabricacion") Date Ano_fabricacion,
-                              @RequestParam("Tipo_motor") String Tipo_motor,
-                              @RequestParam("N_asientos") Integer N_asientos){
-        vehiculoService.guardarVehiculo(Patente, Marca, Modelo, Ano_fabricacion, Tipo_motor, N_asientos);
+                                @RequestParam("Marca") String Marca,
+                                @RequestParam("Modelo") String Modelo,
+                                @RequestParam("Tipo") String Tipo,
+                                @RequestParam("Ano_fabricacion") Date Ano_fabricacion,
+                                @RequestParam("Tipo_motor") String Tipo_motor,
+                                @RequestParam("N_asientos") Integer N_asientos){
+        vehiculoService.guardarVehiculo(Patente, Marca, Modelo, Tipo, Ano_fabricacion, Tipo_motor, N_asientos);
         return "redirect:/nuevo-vehiculo";
     }
 }

@@ -37,8 +37,9 @@ public class ReparacionController {
                               @RequestParam("Monto_total") Integer Monto_total,
                               @RequestParam("Fecha_ingreso") Timestamp Fecha_ingreso,
                               @RequestParam("Fecha_retiro") Timestamp Fecha_retiro,
-                              @RequestParam("Fecha_salida") Timestamp Fecha_salida){
-        reparacionService.guardarReparacion(Patente, Tipo_reparacion, Monto_total, Fecha_ingreso, Fecha_retiro, Fecha_salida);
+                              @RequestParam("Fecha_salida") Timestamp Fecha_salida,
+                                  @RequestParam("BonoDisp") Integer BonoDisp){
+        reparacionService.guardarReparacion(Patente, Tipo_reparacion, Monto_total, Fecha_ingreso, Fecha_retiro, Fecha_salida, BonoDisp);
         return "redirect:/nuevo-reparacion";
     }
 }
