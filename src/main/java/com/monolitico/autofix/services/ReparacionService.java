@@ -38,7 +38,7 @@ public class ReparacionService {
     }
 
     public void guardarReparacion(String Patente, String TipoReparacion,Integer Monto_total, Timestamp Fecha_ingreso,
-                                  Timestamp Fecha_retiro, Timestamp Fecha_salida, Integer BonoDisp){
+                                  Timestamp Fecha_retiro, Timestamp Fecha_salida, Integer BonoDisp, Integer Kilometraje){
         ReparacionEntity reparacion = new ReparacionEntity();
         Long ultimoId = reparacionRepository.ultimoId().getId();
         if (reparacionRepository.ultimoId().getId() != null){
@@ -73,9 +73,188 @@ public class ReparacionService {
         for (int i = 0; i < reparaciones.size(); i++) {
             costoReparaciones = costoReparaciones + tipoReparacionRepository.findById1(reparaciones.get(i).getId()).getPrecio();
         }
+        //-------------------RECARGOS-------------------
+        double descuentos = 0;
+
+        //RECARGO POR KILOMETRAJE
+        if (Kilometraje >=0 && Kilometraje <= 5000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.00;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.00;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.00;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.00;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.00;
+            }
+        }
+        else if (Kilometraje > 5000 && Kilometraje <= 12000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.03;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.03;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.05;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.05;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.05;
+            }
+        }
+        else if (Kilometraje > 12000 && Kilometraje <= 25000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.07;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.07;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.09;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.09;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.09;
+            }
+        }
+        else if (Kilometraje > 25000 && Kilometraje <= 40000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.12;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.12;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.12;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.12;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.12;
+            }
+        }
+        else if (Kilometraje > 40000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.20;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.20;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.20;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.20;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.20;
+            }
+        }
+
+        //RECARGO POR ANTIGUEDAD DEL VEHICULO
+        /*if (vehiculo.getAno_fabricacion().getYear() - fechaActual >= 0 && Kilometraje <= 5000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.00;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.00;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.00;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.00;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.00;
+            }
+        }
+        else if (Kilometraje > 5000 && Kilometraje <= 12000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.03;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.03;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.05;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.05;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.05;
+            }
+        }
+        else if (Kilometraje > 12000 && Kilometraje <= 25000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.07;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.07;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.09;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.09;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.09;
+            }
+        }
+        else if (Kilometraje > 25000 && Kilometraje <= 40000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.12;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.12;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.12;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.12;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.12;
+            }
+        }
+        else if (Kilometraje > 40000){
+            if (vehiculo.getTipo().equals("Sedán")){
+                descuentos = descuentos - 0.20;
+            }
+            else if (vehiculo.getTipo().equals("Hatchback")) {
+                descuentos = descuentos - 0.20;
+            }
+            else if (vehiculo.getTipo().equals("SUV")) {
+                descuentos = descuentos - 0.20;
+            }
+            else if (vehiculo.getTipo().equals("Pickup")) {
+                descuentos = descuentos - 0.20;
+            }
+            else if (vehiculo.getTipo().equals("Furgoneta")) {
+                descuentos = descuentos - 0.20;
+            }
+        }
+        */
+
+        //-------------------FIN RECARGOS-------------------
+
         //-------------------DESCUENTOS-------------------
         //Descuento por numero de reparaciones
-        double descuentos = 0;
         if (reparaciones.size() < 3 && !reparaciones.isEmpty()){
             if (motor.equals("Gasolina")){
                 descuentos = descuentos + 0.05;
